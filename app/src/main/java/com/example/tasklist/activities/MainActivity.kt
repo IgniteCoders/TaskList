@@ -28,9 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         taskDAO = TaskDAO(this)
 
-        adapter = TaskAdapter() {
+        adapter = TaskAdapter(emptyList(), {
             Toast.makeText(this, "Click en tarea: ${taskList[it].name}", Toast.LENGTH_SHORT).show()
-        }
+        }, {
+            taskDAO.delete(taskList[it])
+            Toast.makeText(this, "Tarea borrada correctamente", Toast.LENGTH_SHORT).show()
+            loadData()
+        })
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -44,6 +48,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        loadData()
+    }
+
+    private fun loadData() {
         taskList = taskDAO.findAll()
 
         adapter.updateData(taskList)
