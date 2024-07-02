@@ -9,7 +9,8 @@ import com.example.tasklist.databinding.ItemTaskBinding
 class TaskAdapter (
     private var dataSet: List<Task> = emptyList(),
     private val onItemClickListener: (Int) -> Unit,
-    private val onItemDeleteClickListener: (Int) -> Unit
+    private val onItemDeleteClickListener: (Int) -> Unit,
+    private val onItemCheckedClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<TaskViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,6 +27,11 @@ class TaskAdapter (
         holder.binding.deleteButton.setOnClickListener {
             onItemDeleteClickListener(position)
         }
+        holder.binding.doneCheckBox.setOnCheckedChangeListener { checkbox, _ ->
+            if (checkbox.isPressed) {
+                onItemCheckedClickListener(position)
+            }
+        }
     }
 
     fun updateData(dataSet: List<Task>) {
@@ -38,5 +44,6 @@ class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(bin
 
     fun render(task: Task) {
         binding.nameTextView.text = task.name
+        binding.doneCheckBox.isChecked = task.done
     }
 }

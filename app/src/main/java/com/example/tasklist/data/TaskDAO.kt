@@ -19,6 +19,8 @@ class TaskDAO(context: Context) {
 
         val newRowId = db.insert(Task.TABLE_NAME, null, values)
         task.id = newRowId.toInt()
+
+        db.close()
     }
 
     fun update(task: Task) {
@@ -34,12 +36,16 @@ class TaskDAO(context: Context) {
             "${BaseColumns._ID} = ${task.id}",
             null
         )
+
+        db.close()
     }
 
     fun delete(task: Task) {
         val db = databaseManager.writableDatabase
 
         val deletedRows = db.delete(Task.TABLE_NAME, "${BaseColumns._ID} = ${task.id}", null)
+
+        db.close()
     }
 
     fun find(id: Int) : Task? {
@@ -81,7 +87,7 @@ class TaskDAO(context: Context) {
             null,                         // The values for the WHERE clause
             null,                            // don't group the rows
             null,                             // don't filter by row groups
-            null                             // The sort order
+            "${Task.COLUMN_NAME_DONE} ASC"                             // The sort order
         )
 
         var tasks = mutableListOf<Task>()

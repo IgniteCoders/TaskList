@@ -3,6 +3,8 @@ package com.example.tasklist.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         }, {
             taskDAO.delete(taskList[it])
             Toast.makeText(this, "Tarea borrada correctamente", Toast.LENGTH_SHORT).show()
+            loadData()
+        }, {
+            val task = taskList[it]
+            task.done = !task.done
+            taskDAO.update(task)
             loadData()
         })
 
