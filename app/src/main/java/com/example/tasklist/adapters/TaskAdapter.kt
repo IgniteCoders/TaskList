@@ -3,7 +3,7 @@ package com.example.tasklist.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tasklist.data.Task
+import com.example.tasklist.data.entities.Task
 import com.example.tasklist.databinding.ItemTaskBinding
 
 class TaskAdapter (

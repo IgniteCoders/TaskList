@@ -3,9 +3,8 @@ package com.example.tasklist.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.tasklist.R
-import com.example.tasklist.data.Task
-import com.example.tasklist.data.TaskDAO
+import com.example.tasklist.data.entities.Task
+import com.example.tasklist.data.daos.TaskDAO
 import com.example.tasklist.databinding.ActivityTaskBinding
 
 class TaskActivity : AppCompatActivity() {

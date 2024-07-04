@@ -3,13 +3,14 @@ package com.example.tasklist.utils
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.tasklist.data.Task
+import com.example.tasklist.data.entities.Task
 
 class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         // If you change the database schema, you must increment the database version.
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "TaskList.db"
+        const val COLUMN_NAME_ID = "id"
     }
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(Task.SQL_CREATE_TABLE)
